@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "603143130956",
+    "project_id": "chatbox-d5fcd",
+    "storage_bucket": "chatbox-d5fcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603143130956:android:cfa55f53dc9d216cbec9e9",
+        "android_client_info": {
+          "package_name": "com.example.boxchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603143130956-ci2ql0fnoa9f724o73pp006hu6bp8dt5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boxchat",
+            "certificate_hash": "4ab156b54f2b9bf62e8af8d29d315c094ba03a8b"
+          }
+        },
+        {
+          "client_id": "603143130956-shcelcnca74nq3lc803121ukehirrblr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7S6hE5osOCRYllbbOsOmlqlm1TRjDkVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603143130956-shcelcnca74nq3lc803121ukehirrblr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
