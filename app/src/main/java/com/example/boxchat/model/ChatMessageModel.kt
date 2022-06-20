@@ -5,9 +5,9 @@ import java.util.*
 
 data class ChatMessageModel(
     @SerializedName("messageText")
-    val messageText: String,
+    val messageText: String? = "",
     @SerializedName("messageUser")
-    val messageUser: String,
+    val messageUser: String? = "",
     @SerializedName("messageTime")
-    val messageTime: String
+    val messageTime: String? = ""
         )
