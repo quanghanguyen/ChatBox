@@ -3,17 +3,22 @@ package com.example.boxchat
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.boxchat.databinding.ActivityMainBinding
+import com.example.boxchat.databinding.MessageBinding
 import com.example.boxchat.firebaseconnection.AuthConnection.authUser
 import com.example.boxchat.firebaseconnection.DatabaseConnection
 import com.example.boxchat.model.ChatMessageModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.database.FirebaseListAdapter
 import com.firebase.ui.database.FirebaseListOptions
+import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import java.text.DateFormat
 import java.util.*
@@ -21,8 +26,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding : ActivityMainBinding
-//    private lateinit var adapter : FirebaseListAdapter<ChatMessageModel>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -68,18 +71,58 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayChatMessages() {
 
-        val listOfMessage = findViewById<ListView>(R.id.list_of_messages)
-        val adapter = object : FirebaseListAdapter<ChatMessageModel>(FirebaseListOptions<>) {
-            override fun populateView(v: View, model: ChatMessageModel, position: Int) {
-                val messageText = v.findViewById<TextView>(R.id.message_text)
-                val messageUser = v.findViewById<TextView>(R.id.message_user)
-                val messageTime = v.findViewById<TextView>(R.id.message_time)
+        val query = DatabaseConnection.databaseReference.getReference()
 
-                messageText.text = model.messageText
-                messageUser.text = model.messageUser
-                messageTime.text = model.messageTime
+        val options = FirebaseRecyclerOptions.Builder<ChatMessageModel>()
+            .setQuery(query, ChatMessageModel::class.java)
+            .setLifecycleOwner(this)
+            .build()
+
+        val adapter = object : FirebaseRecyclerAdapter<ChatMessageModel, ChatMessageModelHolder>(options) {
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): ChatMessageModelHolder {
+                val messageItems = MessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val viewHolder = ChatMessageModelHolder(messageItems)
+                return viewHolder
+            }
+
+            override fun onBindViewHolder(
+                holder: ChatMessageModelHolder,
+                position: Int,
+                model: ChatMessageModel
+            ) {
+                holder.bind(model)
+            }
+
+        }
+
+//        val listOfMessage = findViewById<ListView>(R.id.list_of_messages)
+//        val adapter = object : FirebaseListAdapter<ChatMessageModel>(FirebaseListOptions<>) {
+//            override fun populateView(v: View, model: ChatMessageModel, position: Int) {
+//                val messageText = v.findViewById<TextView>(R.id.message_text)
+//                val messageUser = v.findViewById<TextView>(R.id.message_user)
+//                val messageTime = v.findViewById<TextView>(R.id.message_time)
+//
+//                messageText.text = model.messageText
+//                messageUser.text = model.messageUser
+//                messageTime.text = model.messageTime
+//            }
+//        }
+//        listOfMessage.adapter = adapter
+    }
+}
+
+class ChatMessageModelHolder(private val messageBinding: MessageBinding, var chatMessage : ChatMessageModel? = null)
+    : RecyclerView.ViewHolder(messageBinding.root) {
+
+        fun bind(chatMessage: ChatMessageModel?) {
+            with(messageBinding) {
+                messageText.text = chatMessage?.messageText
+                messageUser.text = chatMessage?.messageUser
+                messageTime.text = chatMessage?.messageTime
             }
         }
-        listOfMessage.adapter = adapter
-    }
+
 }
