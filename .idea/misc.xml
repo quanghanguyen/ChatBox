@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ChatBox/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/ChatBox/app/src/main/res/layout/activity_main.xml" value="0.21574074074074073" />
         <entry key="..\:/android_project/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/android_project/app/src/main/res/layout/message.xml" value="0.24166666666666667" />
       </map>

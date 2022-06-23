@@ -24,7 +24,7 @@ class ChatBoxAdapter(private var messageList : ArrayList<ChatMessageModel>)
                         messageTime.text = data.messageTime
                     }
                 }
-    }
+            }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val messageItems = MessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
